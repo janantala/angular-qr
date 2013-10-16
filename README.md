@@ -9,7 +9,7 @@ Check out http://janantala.github.io/angular-qr/demo/
 # Requirements
 
 - AngularJS v 1.0+
-- qrcode.js from src directory
+- qrcode.js from lib directory
 
 # Usage
 
@@ -26,7 +26,7 @@ To your `bower.json` file. Then run
 This will copy the angular-qr files into your `bower_components` folder, along with its dependencies. Load the script files in your application:
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/angular-qr/src/qrcode.js"></script>
+    <script type="text/javascript" src="bower_components/angular-qr/lib/qrcode.js"></script>
     <script type="text/javascript" src="bower_components/angular-qr/src/angular-qr.js"></script>
 
 Add the **ja.qr** module as a dependency to your application module:
