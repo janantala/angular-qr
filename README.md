@@ -36,7 +36,7 @@ Add the **ja.qr** module as a dependency to your application module:
 ## Directive    
 
 ```
-<qr type-number="0" correction-level="'M'" size="200" text="string"></qr>
+<qr type-number="0" correction-level="'M'" size="200" input-mode="'ALPHA_NUM'" text="string"></qr>
 ```
 
 #### type-number
@@ -51,6 +51,10 @@ Add the **ja.qr** module as a dependency to your application module:
  
 #### size
 Size in pixels
+
+#### input-mode
+- `ALPHA_NUM`
+- `8bit`
 
 #### text
 Your text to encode
