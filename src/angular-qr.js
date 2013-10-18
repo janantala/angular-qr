@@ -1,5 +1,5 @@
 /*
- * angular-qr v0.0.1
+ * angular-qr v0.0.2
  * (c) 2013 Jan Antala http://janantala.com
  * License: MIT
  */
@@ -16,6 +16,7 @@
       scope: {
         typeNumber: '=',
         correctionLevel: '=',
+        inputMode: '=',
         size: '=',
         text: '='
       },
@@ -50,7 +51,7 @@
           var trim = /^\s+|\s+$/g;
           var text = value.replace(trim, '');
 
-          var qr = new QRCode(typeNumber, correction);
+          var qr = new QRCode(typeNumber, correction, scope.inputMode);
           qr.addData(text);
           qr.make();
 
@@ -88,6 +89,12 @@
           });
 
           scope.$watch('size', function(value, old){
+            if (value !== old) {
+              render(canvas, scope.text, scope.typeNumber, correction);
+            }
+          });
+
+          scope.$watch('inputMode', function(value, old){
             if (value !== old) {
               render(canvas, scope.text, scope.typeNumber, correction);
             }
