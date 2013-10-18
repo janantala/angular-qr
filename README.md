@@ -1,4 +1,4 @@
-# angular-qr v0.0.1 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
+# angular-qr v0.0.2 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
 
 QR code generator for AngularJS
 
@@ -9,7 +9,7 @@ Check out http://janantala.github.io/angular-qr/demo/
 # Requirements
 
 - AngularJS v 1.0+
-- qrcode.js from lib directory
+- [qrcode.js](https://github.com/janantala/qrcode) from lib directory
 
 # Usage
 
