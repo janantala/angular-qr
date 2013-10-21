@@ -1,4 +1,4 @@
-# angular-qr v0.0.2 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
+# angular-qr v0.0.3 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
 
 QR code generator for AngularJS
 
@@ -53,6 +53,7 @@ Add the **ja.qr** module as a dependency to your application module:
 Size in pixels
 
 #### input-mode
+- `NUMBER`
 - `ALPHA_NUM`
 - `8bit`
 
