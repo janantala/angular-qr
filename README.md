@@ -53,9 +53,9 @@ Add the **ja.qr** module as a dependency to your application module:
 Size in pixels
 
 #### input-mode
-- `NUMBER`
-- `ALPHA_NUM`
-- `8bit`
+- `NUMBER`: *0, 1, 2, 3, 4, 5, 6, 7, 8, 9*
+- `ALPHA_NUM`: *0–9, A–Z (upper-case only), space, $, %, *, +, -, ., /, :*
+- `8bit`: *[ISO 8859-1](http://en.wikipedia.org/wiki/ISO_8859-1)*
 
 #### text
 Your text to encode
