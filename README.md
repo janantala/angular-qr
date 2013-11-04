@@ -1,4 +1,4 @@
-# angular-qr v0.0.3 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
+# angular-qr v0.0.4 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
 
 QR code generator for AngularJS
 
@@ -36,29 +36,39 @@ Add the **ja.qr** module as a dependency to your application module:
 ## Directive    
 
 ```
-<qr type-number="0" correction-level="'M'" size="200" input-mode="'ALPHA_NUM'" text="string"></qr>
+<qr text="string"></qr>
 ```
+
+```
+<qr type-number="8" correction-level="'M'" size="200" input-mode="'ALPHA_NUM'" text="string"></qr>
+```
+
+### Required attributes
+
+#### text
+Your text to encode
+
+### Optional attributes
 
 #### type-number
 - 1-40
-- use 0 as auto
+- default value: minimal required version
 
 #### correction-level
 - L
-- M
+- M (default)
 - Q
 - H
  
 #### size
 Size in pixels
+- default value: 250
 
 #### input-mode
-- `NUMBER`
-- `ALPHA_NUM`
-- `8bit`
-
-#### text
-Your text to encode
+- `NUMBER`: *0, 1, 2, 3, 4, 5, 6, 7, 8, 9*
+- `ALPHA_NUM`: *0–9, A–Z (upper-case only), space, $, %, *, +, -, ., /, :*
+- `8bit`: *[ISO 8859-1](http://en.wikipedia.org/wiki/ISO_8859-1)*
+- default value: minimal required input mode based on input text
 
 # Contributing
 

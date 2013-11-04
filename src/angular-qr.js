@@ -1,5 +1,5 @@
 /*
- * angular-qr v0.0.2
+ * angular-qr v0.0.4
  * (c) 2013 Jan Antala http://janantala.com
  * License: MIT
  */
@@ -8,33 +8,104 @@
   'use strict';
 
   angular.module('ja.qr', [])
+  .controller('QrCtrl', ['$scope', function($scope){
+    $scope.getTypeNumeber = function(){
+      return $scope.typeNumber || 0;
+    };
+
+    $scope.getCorrection = function(){
+      var levels = {
+        'L': 1,
+        'M': 0,
+        'Q': 3,
+        'H': 2
+      };
+
+      var correctionLevel = $scope.correctionLevel || 0;
+      return levels[correctionLevel] || 0;
+    };
+
+    $scope.getText = function(){
+      return $scope.text || '';
+    };
+
+    $scope.getSize = function(){
+      return $scope.size || 250;
+    };
+
+    $scope.isNUMBER = function(text){
+      var ALLOWEDCHARS = /^[0123456789]*$/;
+      return ALLOWEDCHARS.test(text);
+    };
+
+    $scope.isALPHA_NUM = function(text){
+      var ALLOWEDCHARS = /^[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:]*$/;
+      return ALLOWEDCHARS.test(text);
+    };
+
+    $scope.is8bit = function(text){
+      for (var i = 0; i < text.length; i++) {
+        var code = text.charCodeAt(i);
+        if (code > 256) {
+          return false;
+        }
+      }
+      return true;
+    };
+
+    $scope.checkInputMode = function(inputMode, text){
+      if (inputMode === 'NUMBER' && !$scope.isNUMBER(text)) {
+        throw new Error('The `NUMBER` input mode is invalid for text.');
+      }
+      else if (inputMode === 'isALPHA_NUM' && !$scope.isALPHA_NUM(text)) {
+        throw new Error('The `ALPHA_NUM` input mode is invalid for text.');
+      }
+      else if (inputMode === '8bit' && !$scope.is8bit(text)) {
+        throw new Error('The `8bit` input mode is invalid for text.');
+      }
+      else if (!$scope.is8bit(text)) {
+        throw new Error('Input mode is invalid for text.');
+      }
+
+      return true;
+    };
+
+    $scope.getInputMode = function(text){
+      var inputMode = $scope.inputMode;
+      inputMode = inputMode || ($scope.isNUMBER(text) ? 'NUMBER' : undefined);
+      inputMode = inputMode || ($scope.isALPHA_NUM(text) ? 'ALPHA_NUM' : undefined);
+      inputMode = inputMode || ($scope.is8bit(text) ? '8bit' : '');
+
+      return $scope.checkInputMode(inputMode, text) ? inputMode : '';
+    };
+  }])
   .directive('qr', ['$timeout', '$window', function($timeout, $window){
 
     return {
       restrict: 'E',
       template: '<canvas></canvas>',
       scope: {
-        typeNumber: '=',
-        correctionLevel: '=',
-        inputMode: '=',
-        size: '=',
+        typeNumber: '@',
+        correctionLevel: '@',
+        inputMode: '@',
+        size: '@',
         text: '='
       },
+      controller: 'QrCtrl',
       link: function postlink(scope, element, attrs){
-        var levels = {
-          'L': 1,
-          'M': 0,
-          'Q': 3,
-          'H': 2
-        };
+
+        if (scope.text === undefined) {
+          throw new Error('The `text` attribute is required.');
+        }
 
         var canvas = element.find('canvas')[0];
         var canvas2D = !!$window.CanvasRenderingContext2D;
 
-        scope.typeNumber = scope.typeNumber || 0;
-        scope.correctionLevel = scope.correctionLevel || 0;
-        scope.text = scope.text || '';
-        var correction = levels[scope.correctionLevel] || 0;
+        scope.TYPE_NUMBER = scope.getTypeNumeber();
+        scope.TEXT = scope.getText();
+        scope.CORRECTION = scope.getCorrection();
+        scope.SIZE = scope.getSize();
+        scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
 
         var draw = function(context, qr, modules, tile){
           for (var row = 0; row < modules; row++) {
@@ -47,56 +118,61 @@
           }
         };
 
-        var render = function(canvas, value, typeNumber, correction){
+        var render = function(canvas, value, typeNumber, correction, size, inputMode){
           var trim = /^\s+|\s+$/g;
           var text = value.replace(trim, '');
 
-          var qr = new QRCode(typeNumber, correction, scope.inputMode);
+          var qr = new QRCode(typeNumber, correction, inputMode);
           qr.addData(text);
           qr.make();
 
           var context = canvas.getContext('2d');
 
           var modules = qr.getModuleCount();
-          scope.size = scope.size || modules * 2;
-          var tile = scope.size / modules;
-          canvas.width = canvas.height = scope.size;
+          var tile = size / modules;
+          canvas.width = canvas.height = size;
 
           if (canvas2D) {
             draw(context, qr, modules, tile);
           }
         };
 
-        render(canvas, scope.text, scope.typeNumber, correction);
+        render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
 
         $timeout(function(){
           scope.$watch('text', function(value, old){
             if (value !== old) {
-              render(canvas, scope.text, scope.typeNumber, correction);
+              scope.TEXT = scope.getText();
+              scope.INPUT_MODE = scope.getInputMode(TEXT);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
 
           scope.$watch('correctionLevel', function(value, old){
             if (value !== old) {
-              render(canvas, scope.text, scope.typeNumber, correction);
+              scope.CORRECTION = scope.getCorrection();
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
 
           scope.$watch('typeNumber', function(value, old){
             if (value !== old) {
-              render(canvas, scope.text, scope.typeNumber, correction);
+              scope.TYPE_NUMBER = scope.getTypeNumeber();
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
 
           scope.$watch('size', function(value, old){
             if (value !== old) {
-              render(canvas, scope.text, scope.typeNumber, correction);
+              scope.SIZE = scope.getSize();
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
 
           scope.$watch('inputMode', function(value, old){
             if (value !== old) {
-              render(canvas, scope.text, scope.typeNumber, correction);
+              scope.INPUT_MODE = scope.getInputMode(TEXT);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
         });
