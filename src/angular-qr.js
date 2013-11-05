@@ -1,5 +1,5 @@
 /*
- * angular-qr v0.0.4
+ * angular-qr v0.1.0
  * (c) 2013 Jan Antala http://janantala.com
  * License: MIT
  */
@@ -57,7 +57,7 @@
       if (inputMode === 'NUMBER' && !$scope.isNUMBER(text)) {
         throw new Error('The `NUMBER` input mode is invalid for text.');
       }
-      else if (inputMode === 'isALPHA_NUM' && !$scope.isALPHA_NUM(text)) {
+      else if (inputMode === 'ALPHA_NUM' && !$scope.isALPHA_NUM(text)) {
         throw new Error('The `ALPHA_NUM` input mode is invalid for text.');
       }
       else if (inputMode === '8bit' && !$scope.is8bit(text)) {
@@ -85,10 +85,10 @@
       restrict: 'E',
       template: '<canvas></canvas>',
       scope: {
-        typeNumber: '@',
-        correctionLevel: '@',
-        inputMode: '@',
-        size: '@',
+        typeNumber: '=',
+        correctionLevel: '=',
+        inputMode: '=',
+        size: '=',
         text: '='
       },
       controller: 'QrCtrl',
@@ -143,7 +143,7 @@
           scope.$watch('text', function(value, old){
             if (value !== old) {
               scope.TEXT = scope.getText();
-              scope.INPUT_MODE = scope.getInputMode(TEXT);
+              scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
               render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
@@ -171,7 +171,7 @@
 
           scope.$watch('inputMode', function(value, old){
             if (value !== old) {
-              scope.INPUT_MODE = scope.getInputMode(TEXT);
+              scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
               render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
             }
           });
