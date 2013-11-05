@@ -26,7 +26,7 @@ To your `bower.json` file. Then run
 This will copy the angular-qr files into your `bower_components` folder, along with its dependencies. Load the script files in your application:
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/qrcode/src/qrcode.js"></script>
+    <script type="text/javascript" src="bower_components/qrcode/lib/qrcode.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-qr/angular-qr.min.js"></script>
 
 Add the **ja.qr** module as a dependency to your application module:
