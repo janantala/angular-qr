@@ -1,4 +1,4 @@
-# angular-qr v0.0.4 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
+# angular-qr v0.1.0 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
 
 QR code generator for AngularJS
 
@@ -9,7 +9,7 @@ Check out http://janantala.github.io/angular-qr/demo/
 # Requirements
 
 - AngularJS v 1.0+
-- [qrcode.js](https://github.com/janantala/qrcode) from lib directory
+- [qrcode.js](https://github.com/janantala/qrcode) (`bower install qrcode` is installed with angular-qr as dependecy)
 
 # Usage
 
@@ -26,8 +26,8 @@ To your `bower.json` file. Then run
 This will copy the angular-qr files into your `bower_components` folder, along with its dependencies. Load the script files in your application:
 
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/angular-qr/lib/qrcode.js"></script>
-    <script type="text/javascript" src="bower_components/angular-qr/src/angular-qr.js"></script>
+    <script type="text/javascript" src="bower_components/qrcode/src/qrcode.js"></script>
+    <script type="text/javascript" src="bower_components/angular-qr/angular-qr.js"></script>
 
 Add the **ja.qr** module as a dependency to your application module:
 

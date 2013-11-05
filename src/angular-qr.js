@@ -1,5 +1,5 @@
 /*
- * angular-qr v0.0.4
+ * angular-qr v0.1.0
  * (c) 2013 Jan Antala http://janantala.com
  * License: MIT
  */
