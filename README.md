@@ -1,4 +1,4 @@
-# angular-qr v0.1.0 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
+# angular-qr v0.1.1 [![Build Status](https://travis-ci.org/janantala/angular-qr.png?branch=master)](https://travis-ci.org/janantala/angular-qr)
 
 QR code generator for AngularJS
 
@@ -52,13 +52,13 @@ Your text to encode
 
 #### type-number
 - 1-40
-- default value: minimal required version
+- default value: `0` = minimal required version
 
 #### correction-level
-- L
-- M (default)
-- Q
-- H
+- `L` - Low
+- `M` - Medium (default)
+- `Q` - Quartile
+- `H` - High
  
 #### size
 Size in pixels

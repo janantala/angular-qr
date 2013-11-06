@@ -67,6 +67,10 @@ describe('ja.qr', function() {
       expect(scope.getInputMode('aA123')).not.toBe('NUMBER');
       expect(scope.getInputMode('aA123')).not.toBe('ALPHA_NUM');
       expect(scope.getInputMode('aA123')).toBe('8bit');
+
+      expect(scope.getInputMode('A,123')).not.toBe('NUMBER');
+      expect(scope.getInputMode('A,123')).not.toBe('ALPHA_NUM');
+      expect(scope.getInputMode('A,123')).toBe('8bit');
     });
 
   });

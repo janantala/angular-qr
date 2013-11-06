@@ -21,7 +21,7 @@ module.exports = function (grunt) {
       uglify: {
         options: {
           preserveComments: 'some'
-      },
+        },
         dist: {
           src: '<%= pkg.name %>.js',
           dest: '<%= pkg.name %>.min.js'
