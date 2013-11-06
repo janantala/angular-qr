@@ -1,5 +1,5 @@
-/*
- * angular-qr v0.1.0
+/*!
+ * angular-qr v0.1.1
  * (c) 2013 Jan Antala http://janantala.com
  * License: MIT
  */
@@ -34,12 +34,12 @@
     };
 
     $scope.isNUMBER = function(text){
-      var ALLOWEDCHARS = /^[0123456789]*$/;
+      var ALLOWEDCHARS = /^[0-9]*$/;
       return ALLOWEDCHARS.test(text);
     };
 
     $scope.isALPHA_NUM = function(text){
-      var ALLOWEDCHARS = /^[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:]*$/;
+      var ALLOWEDCHARS = /^[0-9A-Z $%*+\-./:]*$/;
       return ALLOWEDCHARS.test(text);
     };
 
