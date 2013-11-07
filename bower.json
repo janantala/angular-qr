@@ -2,7 +2,8 @@
   "name": "angular-qr",
   "version": "0.1.1",
   "description": "QR code generator for AngularJS",
-  "author": "https://github.com/janantala/angular-qr/graphs/contributors",
+  "keywords": ["qr", "qrcode", "angular"],
+  "authors": ["Jan Antala <hello@janantala.com>"],
   "license": "MIT",
   "homepage": "https://github.com/janantala/angular-qr",
   "main": "./src/angular-qr.js",
@@ -11,14 +12,13 @@
     "node_modules",
     "bower_components",
     "test*",
-    "src*",
     "demo*",
     "Gruntfile.js",
     "package.json"
   ],
   "dependencies": {
     "angular": "~1.x",
-    "qrcode": "1.0.x"
+    "qrcode": "~1.0.x"
   },
   "devDependencies": {
     "angular-mocks": "~1.x"
