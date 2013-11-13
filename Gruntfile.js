@@ -1,67 +1,70 @@
 module.exports = function (grunt) {
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-ngmin');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
+  require('load-grunt-tasks')(grunt);
 
   // Default task.
   grunt.registerTask('default', ['karma', 'jshint']);
-  grunt.registerTask('build', ['karma', 'jshint', 'concat', 'ngmin', 'uglify']);
+  grunt.registerTask('build', ['karma', 'jshint', 'concat', 'uglify']);
 
   var karmaConfig = function(configFile, customOptions) {
-      var options = { configFile: configFile, keepalive: true };
-      var travisOptions = process.env.TRAVIS && { browsers: ['Firefox'], reporters: 'dots' };
-      return grunt.util._.extend(options, customOptions, travisOptions);
+    var options = { configFile: configFile, keepalive: true };
+    var travisOptions = process.env.TRAVIS && { browsers: ['Firefox'], reporters: 'dots' };
+    return grunt.util._.extend(options, customOptions, travisOptions);
   };
 
   // Project configuration.
   grunt.initConfig({
-      pkg: grunt.file.readJSON('bower.json'),
-      uglify: {
-        options: {
-          preserveComments: 'some'
-        },
-        dist: {
-          src: '<%= pkg.name %>.js',
-          dest: '<%= pkg.name %>.min.js'
-        }
+    pkg: grunt.file.readJSON('bower.json'),
+    meta: {
+      banner: '/*!\n' +
+        ' * <%= pkg.name %> v<%= pkg.version %>\n' +
+        ' * The MIT License\n' +
+        ' * Copyright (c) 2013 Jan Antala\n' +
+        ' */'
+    },
+    uglify: {
+      options: {
+        preserveComments: 'some'
       },
-      concat: {
-        options: {
-          process: true
-        },
-        dist: {
-          src: 'src/<%= pkg.name %>.js',
-          dest: '<%= pkg.name %>.js'
-        }
-      },
-      karma: {
-          unit: {
-          options: karmaConfig('test/test.conf.js')
-        }
-      },
-      jshint:{
-        files:['src/**/*.js', 'test/**/*.js', 'demo/**/*.js'],
-        options: {
-          curly:true,
-          eqeqeq:true,
-          immed:true,
-          latedef:true,
-          newcap:true,
-          noarg:true,
-          sub:true,
-          boss:true,
-          eqnull:true,
-          devel:true,
-          globals:{}
-        }
-      },
-      ngmin: {
-        dist: {
-          src: '<%= pkg.name %>.js',
-          dest: '<%= pkg.name %>.js'
-        }
+      dist: {
+        src: '<%= pkg.name %>.js',
+        dest: '<%= pkg.name %>.min.js'
       }
+    },
+    concat: {
+      options: {
+        process: true,
+        banner: '<%= meta.banner %>\n\n'
+      },
+      dist: {
+        src: 'src/<%= pkg.name %>.js',
+        dest: '<%= pkg.name %>.js'
+      }
+    },
+    karma: {
+      unit: {
+        options: karmaConfig('test/test.conf.js')
+      }
+    },
+    jshint:{
+      files:['src/**/*.js', 'test/**/*.js'],
+      options: {
+        curly:true,
+        eqeqeq:true,
+        immed:true,
+        latedef:true,
+        newcap:true,
+        noarg:true,
+        sub:true,
+        boss:true,
+        eqnull:true,
+        devel:true,
+        globals:{}
+      }
+    },
+    changelog: {
+      options: {
+        dest: 'CHANGELOG.md'
+      }
+    },
   });
 };
