@@ -1,9 +1,3 @@
-/*!
- * angular-qr v0.1.1
- * (c) 2013 Jan Antala http://janantala.com
- * License: MIT
- */
-
 (function(QRCode){
   'use strict';
 

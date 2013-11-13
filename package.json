@@ -1,6 +1,6 @@
 {
   "name": "angular-qr",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "QR code generator for AngularJS",
   "author": "https://github.com/janantala/angular-qr/graphs/contributors",
   "license": "MIT",
@@ -10,10 +10,11 @@
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-jshint": "~0.2.0",
+    "grunt-conventional-changelog": "~1.0.0",
     "grunt-contrib-uglify": "~0.2.2",
     "grunt-contrib-concat": "~0.3.0",
     "grunt-karma": "~0.7.1",
-    "grunt-ngmin": "0.0.3"
+    "load-grunt-tasks": "~0.2.0"
   },
   "scripts": {},
   "repository": {
