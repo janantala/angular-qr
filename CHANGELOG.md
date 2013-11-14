@@ -1,3 +1,12 @@
+<a name="v0.1.3"></a>
+### v0.1.3 (2013-11-14)
+
+
+#### Bug Fixes
+
+* **is8bit:** max 8bit character has code 255 not 256 ([deebe0eb](https://github.com/janantala/angular-qr/commit/deebe0eb2eb353a52e023a37e1478e75f7b7221a))
+
+
 <a name="v0.1.2"></a>
 ### v0.1.2 (2013-11-13)
 

@@ -1,5 +1,5 @@
 /*!
- * angular-qr v0.1.2
+ * angular-qr v0.1.3
  * The MIT License
  * Copyright (c) 2013 Jan Antala
  */
@@ -46,7 +46,7 @@
     $scope.is8bit = function(text){
       for (var i = 0; i < text.length; i++) {
         var code = text.charCodeAt(i);
-        if (code > 256) {
+        if (code > 255) {
           return false;
         }
       }
