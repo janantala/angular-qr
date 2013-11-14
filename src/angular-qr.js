@@ -40,7 +40,7 @@
     $scope.is8bit = function(text){
       for (var i = 0; i < text.length; i++) {
         var code = text.charCodeAt(i);
-        if (code > 256) {
+        if (code > 255) {
           return false;
         }
       }
