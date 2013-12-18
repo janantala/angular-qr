@@ -15,9 +15,11 @@ Check out http://janantala.github.io/angular-qr/demo/
 
 We use [bower](http://twitter.github.com/bower/) for dependency management. Add
 
-    dependencies: {
-        "angular-qr": "latest"
-    }
+```json
+dependencies: {
+    "angular-qr": "latest"
+}
+```
 
 To your `bower.json` file. Then run
 
@@ -25,21 +27,25 @@ To your `bower.json` file. Then run
 
 This will copy the angular-qr files into your `bower_components` folder, along with its dependencies. Load the script files in your application:
 
-    <script type="text/javascript" src="bower_components/angular/angular.js"></script>
-    <script type="text/javascript" src="bower_components/qrcode/lib/qrcode.min.js"></script>
-    <script type="text/javascript" src="bower_components/angular-qr/angular-qr.min.js"></script>
+```html
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="bower_components/qrcode/lib/qrcode.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-qr/angular-qr.min.js"></script>
+```
 
 Add the **ja.qr** module as a dependency to your application module:
 
-    var myAppModule = angular.module('MyApp', ['ja.qr']);
+```js
+var myAppModule = angular.module('MyApp', ['ja.qr']);
+```
 
 ## Directive    
 
-```
+```html
 <qr text="string"></qr>
 ```
 
-```
+```html
 <qr type-number="8" correction-level="'M'" size="200" input-mode="'ALPHA_NUM'" text="string"></qr>
 ```
 
