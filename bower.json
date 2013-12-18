@@ -1,6 +1,6 @@
 {
   "name": "angular-qr",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "QR code generator for AngularJS",
   "keywords": ["qr", "qrcode", "angular"],
   "authors": ["Jan Antala <hello@janantala.com>"],
@@ -21,10 +21,10 @@
     "package.json"
   ],
   "dependencies": {
-    "angular": "~1.x",
+    "angular": "~1.2.5",
     "qrcode": "~1.0.x"
   },
   "devDependencies": {
-    "angular-mocks": "~1.x"
+    "angular-mocks": "~1.2.5"
   }
 }
