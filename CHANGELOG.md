@@ -1,3 +1,11 @@
+<a name="v0.1.4"></a>
+### v0.1.4 (2013-12-18)
+
+
+#### Features
+
+* **bower:** require angular 1.2.x version ([b5458a21](https://github.com/janantala/angular-qr/commit/b5458a2156cb00d1ea9e4520db17a07c1079b8ba))
+
 <a name="v0.1.3"></a>
 ### v0.1.3 (2013-11-14)
 
