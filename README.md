@@ -41,6 +41,10 @@ var myAppModule = angular.module('MyApp', ['ja.qr']);
 
 ## Directive    
 
+```js
+$scope.string = 'YOUR TEXT TO ENCODE';
+```
+
 ```html
 <qr text="string"></qr>
 ```
