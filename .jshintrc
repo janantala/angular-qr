@@ -1,0 +1,16 @@
+{
+  "strict": true,
+  "undef": true,
+  "unused": false,
+  "node": true,
+  "globals": {
+    "window": true,
+    "document": true,
+    "navigator": true,
+    "angular": true,
+    "describe": true,
+    "it": true,
+    "beforeEach": true,
+    "afterEach": true
+  }
+}
