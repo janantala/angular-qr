@@ -10,7 +10,6 @@ var header = require('gulp-header');
 var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
-var gulpConventionalChangelog = require('gulp-conventional-changelog');
 
 var now = new Date();
 var year = dateformat(now, "yyyy");
@@ -59,11 +58,11 @@ gulp.task('build', function() {
     .pipe(gulp.dest(''));
 });
 
-gulp.task('changelog', function() {
-  return gulp
-    .src(['package.json', 'CHANGELOG.md'])
-    .pipe(gulpConventionalChangelog())
-    .pipe(gulp.dest('.')); // will output one file only
-});
+// gulp.task('changelog', function() {
+//   return gulp
+//     .src(['package.json', 'CHANGELOG.md'])
+//     .pipe(gulpConventionalChangelog())
+//     .pipe(gulp.dest('.')); // will output one file only
+// });
 
 gulp.task('default', ['lint', 'karma']);
