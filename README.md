@@ -80,23 +80,23 @@ Size in pixels
 - `8bit`: *[ISO 8859-1](http://en.wikipedia.org/wiki/ISO_8859-1)*
 - default value: minimal required input mode based on input text
 
-### image
+#### image
 - If you want to render qr code into image element set this attribute to `true`.
 
 # Contributing
 
-Contributions are welcome. Please make a pull request against canary branch and do not bump versions. Also include tests.
+Contributions are welcome. Please make a pull request against canary branch, use [Git Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.uyo6cb12dt6w) and do not bump versions. Also include tests.
 
 # Testing
 
-We use karma and jshint to ensure the quality of the code. The easiest way to run these checks is to use grunt:
+We use karma and jshint to ensure the quality of the code. The easiest way to run these checks is to use gulp:
 
-    npm install -g grunt-cli
+    npm install -g gulp
     npm install
     bower install
-    grunt
+    gulp
 
-The karma task will try to open Chrome as a browser in which to run the tests. Make sure this is available or change the configuration in `test/test.config.js` 
+The karma task will try to open Chrome as a browser in which to run the tests. Make sure this is available or change the configuration in `karma.conf.js` 
 
 
 # License
