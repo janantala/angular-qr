@@ -50,13 +50,13 @@ $scope.string = 'YOUR TEXT TO ENCODE';
 ```
 
 ```html
-<qr type-number="8" correction-level="'M'" size="200" input-mode="'ALPHA_NUM'" text="string"></qr>
+<qr type-number="8" correction-level="'M'" size="200" input-mode="'ALPHA_NUM'" text="string" image="true"></qr>
 ```
 
 ### Required attributes
 
 #### text
-Your text to encode
+Your text to encode from variable in the scope. If you want to encode text directly you need to escape it `text="'YOUR TEXT TO ENCODE'"`.
 
 ### Optional attributes
 
@@ -79,6 +79,9 @@ Size in pixels
 - `ALPHA_NUM`: *0–9, A–Z (upper-case only), space, $, %, *, +, -, ., /, :*
 - `8bit`: *[ISO 8859-1](http://en.wikipedia.org/wiki/ISO_8859-1)*
 - default value: minimal required input mode based on input text
+
+### image
+- If you want to render qr code into image element set this attribute to `true`.
 
 # Contributing
 
