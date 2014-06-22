@@ -77,13 +77,14 @@
 
     return {
       restrict: 'E',
-      template: '<canvas></canvas>',
+      template: '<canvas ng-hide="image"></canvas><image ng-if="image" ng-src="{{canvasImage}}"/>',
       scope: {
         typeNumber: '=',
         correctionLevel: '=',
         inputMode: '=',
         size: '=',
-        text: '='
+        text: '=',
+        image: '='
       },
       controller: 'QrCtrl',
       link: function postlink(scope, element, attrs){
@@ -100,6 +101,7 @@
         scope.CORRECTION = scope.getCorrection();
         scope.SIZE = scope.getSize();
         scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
+        scope.canvasImage = 'http://lorempixel.com/500/500/';
 
         var draw = function(context, qr, modules, tile){
           for (var row = 0; row < modules; row++) {
@@ -128,6 +130,7 @@
 
           if (canvas2D) {
             draw(context, qr, modules, tile);
+            scope.canvasImage = canvas.toDataURL();
           }
         };
 

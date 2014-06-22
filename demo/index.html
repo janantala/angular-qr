@@ -175,7 +175,7 @@
     <h3>Load dependecies:</h3>
 
     <p class="code code-html">
-      <span>&lt;script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"&gt;&lt;/script&gt;</span>
+      <span>&lt;script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"&gt;&lt;/script&gt;</span>
     </p>
     <p class="code code-html">
       <span>&lt;script src="bower_components/qrcode/lib/qrcode.min.js"&gt;&lt;/script&gt;</span>
@@ -191,7 +191,7 @@
     </p>
 
     <p>
-      <qr text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="size" input-mode="inputMode"></qr>
+      <qr text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="size" input-mode="inputMode" image="true"></qr>
     </p>
 
     <p>
@@ -204,7 +204,7 @@
     <h3>Optional attributes:</h3>
 
     <p class="code code-html">
-      <span class="code-vial">&lt;qr <span class="code-yellow">text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="SIZE" input-mode="inputMode"</span>&gt;&lt;/qr&gt;</span>
+      <span class="code-vial">&lt;qr <span class="code-yellow">text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="SIZE" input-mode="inputMode" image="image"</span>&gt;&lt;/qr&gt;</span>
     </p>
 
     <p>
@@ -247,6 +247,15 @@
       <input type="radio" id="inputMode" ng-model="inputMode" value="8bit"/>  8bit
     </p>
 
+    <p>
+      <label for="image">Render Image:</label>
+      <span>{{image}}</span>
+    </p>
+    <p>
+      <input type="radio" id="image" ng-model="image" ng-value="true"/>  Yes
+      <input type="radio" id="image" ng-model="image" ng-value="false"/>  No
+    </p>
+
   </div>
 
   <footer>
@@ -256,9 +265,9 @@
 
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.5/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-beta.13/angular.min.js"></script>
 <script src="../lib/qrcode.js"></script>
-<script src="../angular-qr.min.js"></script>
+<script src="../src/angular-qr.js"></script>
 
 <script>
 angular.module('adaptiveApp', ['ja.qr']).
@@ -269,6 +278,7 @@ controller('AdaptiveCtrl', function ($scope) {
   $scope.correctionLevel = '';
   $scope.typeNumber = 0;
   $scope.inputMode = '';
+  $scope.image = true;
 });
 </script>
 </body>
