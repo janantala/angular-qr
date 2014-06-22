@@ -103,4 +103,4 @@ The karma task will try to open Chrome as a browser in which to run the tests. M
 
 The MIT License
 
-Copyright (c) 2013 [Jan Antala](http://www.janantala.com)
+Copyright (c) 2014 [Jan Antala](http://www.janantala.com)

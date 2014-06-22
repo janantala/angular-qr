@@ -100,13 +100,25 @@
     }
 
     @-webkit-keyframes love {
-      to {-webkit-transform: scale(1.2);}
+      to {
+        -webkit-transform: scale(1.4);
+        transform: scale(1.4);
+      }
     }
+
     @-moz-keyframes love {
-      to {-moz-transform: scale(1.2);}
+      to {
+        -moz-transform: scale(1.4);
+        transform: scale(1.4);
+      }
     }
+
     @keyframes love {
-      to {transform: scale(1.2);}
+      to {
+        -webkit-transform: scale(1.4);
+        -moz-transform: scale(1.4);
+        transform: scale(1.4);
+      }
     }
 
     .code {
