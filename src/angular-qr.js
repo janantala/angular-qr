@@ -79,11 +79,11 @@
       restrict: 'E',
       template: '<canvas></canvas>',
       scope: {
-        typeNumber: '@',
-        correctionLevel: '@',
-        inputMode: '@',
-        size: '@',
-        text: '@'
+        typeNumber: '=',
+        correctionLevel: '=',
+        inputMode: '=',
+        size: '=',
+        text: '='
       },
       controller: 'QrCtrl',
       link: function postlink(scope, element, attrs){
