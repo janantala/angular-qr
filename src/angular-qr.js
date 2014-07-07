@@ -101,7 +101,7 @@
         scope.CORRECTION = scope.getCorrection();
         scope.SIZE = scope.getSize();
         scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
-        scope.canvasImage = 'http://lorempixel.com/500/500/';
+        scope.canvasImage = '';
 
         var draw = function(context, qr, modules, tile){
           for (var row = 0; row < modules; row++) {
@@ -130,7 +130,7 @@
 
           if (canvas2D) {
             draw(context, qr, modules, tile);
-            scope.canvasImage = canvas.toDataURL();
+            scope.canvasImage = canvas.toDataURL() || '';
           }
         };
 
