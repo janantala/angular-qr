@@ -76,7 +76,7 @@
   .directive('qr', ['$timeout', '$window', function($timeout, $window){
 
     return {
-      restrict: 'E',
+      restrict: 'EA',
       template: '<canvas ng-hide="image"></canvas><image ng-if="image" ng-src="{{canvasImage}}"/>',
       scope: {
         typeNumber: '=',
