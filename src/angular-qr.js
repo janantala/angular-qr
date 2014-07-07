@@ -77,7 +77,7 @@
 
     return {
       restrict: 'E',
-      template: '<canvas ng-hide="image"></canvas><image ng-if="image" ng-src="{{canvasImage}}"/>',
+      template: '<canvas ng-hide="image"></canvas><img ng-if="image" ng-src="{{canvasImage}}"/>',
       scope: {
         typeNumber: '=',
         correctionLevel: '=',
