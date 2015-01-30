@@ -11,6 +11,7 @@ var rename = require('gulp-rename');
 var jshint = require('gulp-jshint');
 var karma = require('gulp-karma');
 var changelog = require('conventional-changelog');
+var es = require('event-stream');
 
 var now = new Date();
 var year = dateformat(now, "yyyy");
@@ -25,7 +26,7 @@ var banner = [
   ].join('\n');
 
 var codeFiles = ['src/*.js'];
-var testFiles = ['bower_components/angular/angular.js', 'bower_components/angular-mocks/angular-mocks.js', 'lib/qrcode.js', 'src/*.js', 'test/*.spec.js'];
+var testFiles = ['bower_components/angular/angular.js', 'bower_components/angular-mocks/angular-mocks.js', 'bower_components/qrcode/lib/qrcode.js', 'src/*.js', 'test/*.spec.js'];
       
 gulp.task('lint', function(){
   log('Linting Files');
@@ -34,7 +35,7 @@ gulp.task('lint', function(){
     .pipe(jshint.reporter());
 });
 
-gulp.task('karma', function () {
+gulp.task('karma-vanilla', function () {
 
   var options = {
     configFile: 'karma.conf.js',
@@ -48,6 +49,30 @@ gulp.task('karma', function () {
   return gulp.src(testFiles)
     .pipe(karma(options));
 });
+
+gulp.task('karma-amd', function () {
+
+  var options = {
+    configFile: 'karma-amd.conf.js',
+    action: 'run'
+  };
+
+  if (process.env.TRAVIS) {
+    options.browsers = ['Firefox'];
+  }
+    
+  return gulp.src(testFiles.concat('test/requirejs-main.js'))
+  	.pipe(es.map(function(data, cb){
+		data.path = {
+			pattern: data.path,
+			included: /requirejs-main\.js$/.test(data.path),
+		};
+		cb(null, data);
+	}))
+  	.pipe(karma(options));
+});
+
+gulp.task('karma', ['karma-vanilla', 'karma-amd']);
 
 gulp.task('build', function() {
   return gulp.src(codeFiles)

@@ -1,6 +1,8 @@
+/* jshint jasmine: true */
+((function(define){'use strict'; define(['angular', 'src/angular-qr'], function(angular){
 describe('ja.qr', function() {
 
-  beforeEach(module('ja.qr'));
+  beforeEach(angular.mock.module('ja.qr'));
 
   // var elm, scope, ctrl;
 
@@ -15,7 +17,7 @@ describe('ja.qr', function() {
   describe('QrCtrl', function() {
 
     var scope, ctrl;
-    beforeEach(inject(function($rootScope, $controller) {
+    beforeEach(angular.mock.inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
       ctrl = $controller('QrCtrl', {$scope: scope });
     }));
@@ -75,3 +77,4 @@ describe('ja.qr', function() {
 
   });
 });
+});})(window.define?window.define:function(deps, module){'use strict'; return module(window.angular);}));
