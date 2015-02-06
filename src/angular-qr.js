@@ -1,6 +1,4 @@
-(function(QRCode){
-  'use strict';
-
+((function(define){'use strict'; define(['angular', 'QRCode'], function(angular, QRCode){
   angular.module('ja.qr', [])
   .controller('QrCtrl', ['$scope', function($scope){
     $scope.getTypeNumeber = function(){
@@ -178,4 +176,4 @@
     };
   }]);
 
-})(window.QRCode);
+});})(window.define?window.define:function(deps, module){'use strict'; return module(window.angular, window.QRCode);}));
