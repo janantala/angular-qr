@@ -89,7 +89,7 @@
       controller: 'QrCtrl',
       link: function postlink(scope, element, attrs){
 
-        if (scope.text === undefined) {
+        if (!element[0].hasAttribute('text')) {
           throw new Error('The `text` attribute is required.');
         }
 
