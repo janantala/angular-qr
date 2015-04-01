@@ -72,6 +72,10 @@
 
       return $scope.checkInputMode(inputMode, text) ? inputMode : '';
     };
+
+    $scope.getFileName = function() {
+        return $scope.fileName || 'qrcode.png';
+    };
   }])
   .directive('qr', ['$timeout', '$window', function($timeout, $window){
 
@@ -84,7 +88,8 @@
         inputMode: '=',
         size: '=',
         text: '=',
-        image: '='
+        image: '=',
+        fileName: '='
       },
       controller: 'QrCtrl',
       link: function postlink(scope, element, attrs){
@@ -93,8 +98,11 @@
           throw new Error('The `text` attribute is required.');
         }
 
-        var canvas = element.find('canvas')[0];
+        var $canvas = element.find('canvas');
+        var canvas = $canvas[0];
         var canvas2D = !!$window.CanvasRenderingContext2D;
+
+        var link = 'download' in attrs ? document.createElement('a') : '';
 
         scope.TYPE_NUMBER = scope.getTypeNumeber();
         scope.TEXT = scope.getText();
@@ -102,6 +110,7 @@
         scope.SIZE = scope.getSize();
         scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
         scope.canvasImage = '';
+        scope.FILE_NAME = scope.getFileName();
 
         var draw = function(context, qr, modules, tile){
           for (var row = 0; row < modules; row++) {
@@ -114,7 +123,7 @@
           }
         };
 
-        var render = function(canvas, value, typeNumber, correction, size, inputMode){
+        var render = function(canvas, value, typeNumber, correction, size, inputMode, fileName){
           var trim = /^\s+|\s+$/g;
           var text = value.replace(trim, '');
 
@@ -132,44 +141,50 @@
             draw(context, qr, modules, tile);
             scope.canvasImage = canvas.toDataURL() || '';
           }
+
+          if (link) {
+              link.download = fileName;
+              link.href = canvas.toDataURL() || '';
+              element.wrap(link);
+          }
         };
 
-        render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+        render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.FILE_NAME);
 
         $timeout(function(){
           scope.$watch('text', function(value, old){
             if (value !== old) {
               scope.TEXT = scope.getText();
               scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.FILE_NAME);
             }
           });
 
           scope.$watch('correctionLevel', function(value, old){
             if (value !== old) {
               scope.CORRECTION = scope.getCorrection();
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.FILE_NAME);
             }
           });
 
           scope.$watch('typeNumber', function(value, old){
             if (value !== old) {
               scope.TYPE_NUMBER = scope.getTypeNumeber();
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.FILE_NAME);
             }
           });
 
           scope.$watch('size', function(value, old){
             if (value !== old) {
               scope.SIZE = scope.getSize();
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.FILE_NAME);
             }
           });
 
           scope.$watch('inputMode', function(value, old){
             if (value !== old) {
               scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.FILE_NAME);
             }
           });
         });
