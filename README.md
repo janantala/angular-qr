@@ -83,6 +83,12 @@ Size in pixels
 #### image
 - If you want to render qr code into image element set this attribute to `true`.
 
+#### download
+- Mark an image as downloadable
+
+#### fileName
+- Name of downloaded image
+
 # Contributing
 
 Contributions are welcome. Please make a pull request against canary branch, use [Git Commit Message Conventions](https://docs.google.com/document/d/1QrDFcIiPjSLDn3EL15IJygNPiHORgU1_OOAqWjiDU5Y/edit#heading=h.uyo6cb12dt6w) and do not bump versions. Also include tests.
