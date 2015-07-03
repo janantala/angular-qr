@@ -11,8 +11,8 @@
   <style>
 
     [ng-cloak] { display: none; }
-    html, body { 
-      font-family: 'Titillium Web', sans-serif; 
+    html, body {
+      font-family: 'Titillium Web', sans-serif;
       padding: 0;
       margin: 0;
       text-align: center;
@@ -144,7 +144,7 @@
     .textarea {
       width: 100%;
       height: 100px;
-      resize: vertical; 
+      resize: vertical;
       font-family: 'Droid Sans Mono', 'Titillium Web', sans-serif;
       font-size: 28px;
       line-height: 40px;
@@ -203,7 +203,7 @@
     </p>
 
     <p>
-      <qr text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="size" input-mode="inputMode" image="image"></qr>
+      <qr text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="size" input-mode="inputMode" image="image" dark-color="darkColor" light-color="lightColor"></qr>
     </p>
 
     <p>
@@ -216,7 +216,7 @@
     <h3>Optional attributes:</h3>
 
     <p class="code code-html">
-      <span class="code-vial">&lt;qr <span class="code-yellow">text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="SIZE" input-mode="inputMode" image="image"</span>&gt;&lt;/qr&gt;</span>
+      <span class="code-vial">&lt;qr <span class="code-yellow">text="qrcodeString" type-number="typeNumber" correction-level="correctionLevel" size="SIZE" input-mode="inputMode" image="image" dark-color="darkColor" light-color="lightColor"</span>&gt;&lt;/qr&gt;</span>
     </p>
 
     <p>
@@ -268,6 +268,22 @@
       <input type="radio" id="image" ng-model="image" ng-value="false"/>  No
     </p>
 
+    <p>
+      <label for="darkColor">Dark color:</label>
+      <span>{{darkColor}}</span>
+    </p>
+    <p>
+      <input type="color" id="darkColor" ng-model="darkColor" />
+    </p>
+
+    <p>
+      <label for="lightColor">Light color:</label>
+      <span>{{lightColor}}</span>
+    </p>
+    <p>
+      <input type="color" id="lightColor" ng-model="lightColor" />
+    </p>
+
   </div>
 
   <footer>
@@ -291,6 +307,8 @@ controller('AdaptiveCtrl', function ($scope) {
   $scope.typeNumber = 0;
   $scope.inputMode = '';
   $scope.image = true;
+  $scope.darkColor = '#000';
+  $scope.lightColor = '#FFF';
 });
 </script>
 </body>
