@@ -27,6 +27,18 @@
       return $scope.size || 250;
     };
 
+    $scope.getSize = function(){
+      return $scope.size || 250;
+    };
+
+    $scope.getDarkColor = function(){
+      return $scope.darkColor || '#000';
+    };
+
+    $scope.getLightColor = function(){
+      return $scope.lightColor || '#FFF';
+    };
+
     $scope.isNUMBER = function(text){
       var ALLOWEDCHARS = /^[0-9]*$/;
       return ALLOWEDCHARS.test(text);
@@ -77,14 +89,16 @@
 
     return {
       restrict: 'E',
-      template: '<canvas ng-hide="image"></canvas><img ng-if="image" ng-src="{{canvasImage}}"/>',
+      template: '<canvas ng-hide="image"></canvas><image ng-if="image" ng-src="{{canvasImage}}"/>',
       scope: {
         typeNumber: '=',
         correctionLevel: '=',
         inputMode: '=',
         size: '=',
         text: '=',
-        image: '='
+        image: '=',
+        darkColor: '=',
+        lightColor: '='
       },
       controller: 'QrCtrl',
       link: function postlink(scope, element, attrs){
@@ -101,20 +115,24 @@
         scope.CORRECTION = scope.getCorrection();
         scope.SIZE = scope.getSize();
         scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
-        scope.canvasImage = '';
+        scope.DARK_COLOR = scope.getDarkColor();
+        scope.LIGHT_COLOR = scope.getLightColor();
+        scope.canvasImage = 'http://lorempixel.com/500/500/';
 
-        var draw = function(context, qr, modules, tile){
+        var draw = function(context, qr, modules, tile, darkColor, lightColor){
           for (var row = 0; row < modules; row++) {
             for (var col = 0; col < modules; col++) {
               var w = (Math.ceil((col + 1) * tile) - Math.floor(col * tile)),
                   h = (Math.ceil((row + 1) * tile) - Math.floor(row * tile));
-              context.fillStyle = qr.isDark(row, col) ? '#000' : '#fff';
+              context.fillStyle = qr.isDark(row, col) ? darkColor : lightColor;
               context.fillRect(Math.round(col * tile), Math.round(row * tile), w, h);
             }
           }
         };
 
-        var render = function(canvas, value, typeNumber, correction, size, inputMode){
+        var render = function(canvas, value, typeNumber, correction, size, inputMode, darkColor, lightColor){
+            console.log("darkColor: "+darkColor);
+            console.log("lightColor: "+lightColor);
           var trim = /^\s+|\s+$/g;
           var text = value.replace(trim, '');
 
@@ -129,47 +147,66 @@
           canvas.width = canvas.height = size;
 
           if (canvas2D) {
-            draw(context, qr, modules, tile);
-            scope.canvasImage = canvas.toDataURL() || '';
+            draw(context, qr, modules, tile, darkColor, lightColor);
+            scope.canvasImage = canvas.toDataURL();
           }
         };
 
-        render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+        var rerender = function() {
+          render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE, scope.DARK_COLOR, scope.LIGHT_COLOR);
+        };
+
+        rerender();
 
         $timeout(function(){
           scope.$watch('text', function(value, old){
             if (value !== old) {
               scope.TEXT = scope.getText();
               scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              rerender();
             }
           });
 
           scope.$watch('correctionLevel', function(value, old){
             if (value !== old) {
               scope.CORRECTION = scope.getCorrection();
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              rerender();
             }
           });
 
           scope.$watch('typeNumber', function(value, old){
             if (value !== old) {
               scope.TYPE_NUMBER = scope.getTypeNumeber();
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              rerender();
             }
           });
 
           scope.$watch('size', function(value, old){
             if (value !== old) {
               scope.SIZE = scope.getSize();
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              rerender();
             }
           });
 
           scope.$watch('inputMode', function(value, old){
             if (value !== old) {
               scope.INPUT_MODE = scope.getInputMode(scope.TEXT);
-              render(canvas, scope.TEXT, scope.TYPE_NUMBER, scope.CORRECTION, scope.SIZE, scope.INPUT_MODE);
+              rerender();
+            }
+          });
+
+          scope.$watch('darkColor', function(value, old){
+            if (value !== old) {
+                console.log("darkColor changed: "+value);
+              scope.DARK_COLOR = scope.getDarkColor();
+              rerender();
+            }
+          });
+
+          scope.$watch('lightColor', function(value, old){
+            if (value !== old) {
+              scope.LIGHT_COLOR = scope.getLightColor();
+              rerender();
             }
           });
         });
